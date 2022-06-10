@@ -1,0 +1,17 @@
+{{- .Content -}}
+
+<h1>Read Dir</h1>
+{{ range os.ReadDir "." }}
+  <p>{{ .Name }} --> {{ .IsDir }}</p>
+{{ end }}
+
+<h2>Directory Checks from root</h2>
+<table>
+{{ range (slice "/content" "content" "/assets" "assets" "/__does_not_exist" "__does_not_exist") }}
+  <tr>
+    <td>{{ . }}</td>
+    <td>{{ if (os.FileExists .) }}✅{{else}}❌{{end}}</td>
+    <td>{{ os.FileExists . }}</td>
+  </tr>
+{{ end }}
+</table>
